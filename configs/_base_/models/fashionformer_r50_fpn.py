@@ -130,8 +130,9 @@ model = dict(
                 pos_weight=1) for _ in range(num_stages)
         ]),
     test_cfg=dict(
-        rpn=None,
+        rpn=dict(min_bbox_size=0),
         rcnn=dict(
+            score_thr=0.3,
             max_per_img=num_proposals,
             mask_thr=0.5,
             merge_stuff_thing=dict(

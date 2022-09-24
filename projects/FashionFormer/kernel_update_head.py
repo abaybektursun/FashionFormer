@@ -584,7 +584,10 @@ class KernelUpdateHead(nn.Module):
         return labels, label_weights, mask_targets, mask_weights, attribute_targets
 
     def rescale_masks(self, masks_per_img, img_meta):
-        h, w, _ = img_meta["img_shape"]
+        if len(img_meta["img_shape"]) == 2:
+            h, w = img_meta["img_shape"]
+        else:
+            h, w, _ = img_meta["img_shape"]
         masks_per_img = F.interpolate(
             masks_per_img.unsqueeze(0).sigmoid(),
             size=img_meta["batch_input_shape"],
